@@ -1,3 +1,5 @@
+:warning: This is not the original library, it can be found [here](https://github.com/hyperledger/indy-sdk/tree/master/wrappers/ios/libindy-pod) :warning:
+
 ### Indy wrapper for iOS working with Swift 5
 
 Just `pod install` and archive to get your Indy.framework
