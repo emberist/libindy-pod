@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/hyperledger/indy-sdk.git'
-platform :ios, '10.2'
+platform :ios, '10'
 
 workspace 'Indy.xcworkspace'
 
@@ -29,11 +29,13 @@ end
 # ignore all warnings from all pods
 #inhibit_all_warnings!
 
-post_install do |installer|
+post_install do |installer|require 'fileutils'
+    FileUtils.cp_r('platform.hpp', 'Pods/libzmq/src/platform.hpp', :remove_destination => true)
+
     installer.pods_project.targets.each do |target|
       if target.name == 'libzmq'
         target.build_configurations.each do |config|
-            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'ZMQ_BUILD_DRAFT_API=1']
+            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'ZMQ_BUILD_DRAFT_API=1', 'ZMQ_USE_KQUEUE']
         end
       end
       if target.name == 'libsodium'
